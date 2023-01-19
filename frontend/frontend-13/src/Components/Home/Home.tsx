@@ -3,7 +3,7 @@ import { Typography, Link, Container,Box } from "@mui/material";
 import Banner from "./Banner";
 import Promotions from "./Promotions";
 import Products from "../Products/Products";
-import Footer from "./Footer";
+import Footer from "../public/Footer/Footer";
 import Cart from "../Cart/Cart";
 import UploadPage from '../UploadProduct/UploadPage';
 
