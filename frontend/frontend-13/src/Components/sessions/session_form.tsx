@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 export type sessionEnum = "login" | "sign_up";
 
+
 interface sessionForm {
   formType: sessionEnum;
 }
@@ -22,7 +23,6 @@ function SessionForm(props: any) {
   const [valid, setValid] = useState(true);
   const [error, setErrors] = useState(false);
 
-  
   
   useEffect(() => {
     if (props.currentUser) {
