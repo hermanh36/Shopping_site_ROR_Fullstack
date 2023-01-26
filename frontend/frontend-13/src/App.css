@@ -1,6 +1,7 @@
 @import "./Components/sessions/session_form.css";
 @import "./Components/product_pages/product_detail.css";
 @import "./Components/UploadProduct/upload_page.css";
+@import "./Components/Payment/payment.css";
 
 .App {
   text-align: center;

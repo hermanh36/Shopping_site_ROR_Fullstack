@@ -7,7 +7,7 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import React from "react";
+import React, {useState, useEffect}  from "react";
 import {
   getCartProduct,
   getTotalPrice,
@@ -19,8 +19,89 @@ import { useAppDispatch, useAppSeletor } from "../../Redux/toolkit/store.hook";
 import { Colors } from "../../styles/theme";
 import { Product} from "../../Redux/toolkit/product.slice"
 import { BannerShopButton } from "../../styles/banner";
+// import StripeCheckout from "react-stripe-checkout";
+import { Elements } from '@stripe/react-stripe-js';
+  import { loadStripe } from '@stripe/stripe-js';
+  // import PaymentForm from "../Payment/payment-form"
+  import Payment from "../Payment/Payment"
+  import { useNavigate } from "react-router-dom";
+  import { useLocation } from "react-router-dom";
+
+// import { useHistory } from "react-router";
+// import {StripeProvider, Element} from "@stripe/react-stripe-js";
+
+// const KEY = process.env.REACT_APP_STRIPE;
+// const nodeEnv: string = (process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string);
+// const KEY: string = (process.env.REACT_APP_STRIPE as string);
+const KEY = "pk_test_51MRuQfJ56Ra8agnt0CMVPDY8DUZcL3A8uIxLMqOiI7tEpN9C0VJaj0DLRge0pXK36fXdC8kcPcP1qSKmhdaKte6b00llKVqxIo"
+const stripePromise = loadStripe(KEY);
+
+// export type StripeTypes = {
+//   clientSecret: string;
+//   appearance: {
+//     theme: "stripe",
+//     variables: {
+//       colorPrimary: string
+//     }
+//   }
+// };
+
+// const CheckoutCard = ({ secret }:any) => {
+//   // const { cartTotal } = useContext(CartContext);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     if (!stripePromise || !secret) {
+//       navigate('/')
+//     }
+//   }, [secret, navigate])
+
+//   const options: StripeTypes = {
+//     // pass the client secret
+//     clientSecret: secret,
+//     // Fully customizable with appearance API.
+//     appearance: {
+//       theme: 'stripe',
+//       variables: {
+//         colorPrimary: '#008b8b'
+//       }
+//     },
+//   };
 
 const Cart: React.FC = () => {
+
+  const [showPayment, setShowPayment] = useState(false);
+  const handleOpenDetail = (showornot:boolean)=>{setShowPayment(showornot)};
+  // const [stripeToken, setStripeToken] = useState(null);
+  // const history = useHistory();
+
+  // const onToken = (token:any) => {
+  //   setStripeToken(token);
+  // };
+  //  console.log(stripeToken);
+  // const params = useLocation();
+  // const secret: any = params.state;
+
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (!stripePromise || !secret) {
+  //     navigate('/')
+  //   }
+  // }, [secret, navigate])
+
+  // const options: StripeTypes = {
+  //   // pass the client secret
+  //   clientSecret: secret,
+  //   // Fully customizable with appearance API.
+  //   appearance: {
+  //     theme: 'stripe',
+  //     variables: {
+  //       colorPrimary: '#008b8b'
+  //     }
+  //   },
+  // };
+ 
   const cartProducts = useAppSeletor(getCartProduct);
   const totalPrice = useAppSeletor(getTotalPrice);
   const showCart = useAppSeletor(getCartStatus);
@@ -46,7 +127,7 @@ const Cart: React.FC = () => {
         <Box display="flex" 
         justifyContent={"start"} flexDirection={"column"}
         >
-<Box  >
+        <Box  >
           <Typography variant="h6" display="inline" align="left" sx={{  pr: 5  }} >
             {product.name}</Typography>
           <Typography sx={{  pl: 5  }} variant="body1" display="inline">
@@ -142,11 +223,38 @@ const Cart: React.FC = () => {
               Total: ${totalPrice}
             </Typography>
 
-            <Button sx={{ mt: 4 }} variant="contained">
+
+              {/* <StripeCheckout
+              name="Happy Shop"
+              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              billingAddress:true
+              shippingAddress:true
+              description= {`Your total is $${totalPrice}`}
+              amount={totalPrice * 100}
+              token={onToken}
+              stripeKey={KEY}
+            > */}
+            <Button sx={{ mt: 4 }}  variant="contained"  onClick={()=>{handleOpenDetail(true);}}>
               Check Out
             </Button>
+            {/* </StripeCheckout> */}
+{/* { secret&&
+ <Elements stripe={stripePromise} options={options}>
+ <PaymentForm />
+</Elements>
+
+} */}
+
+
+ <Elements stripe={stripePromise}>
+ <Payment amount = {totalPrice} show={showPayment} setShow={setShowPayment}/>
+</Elements>
+
+
+         
           </Box>
         )}
+
         <Button onClick={() => handleOpenCart(showCart)}>CLOSE</Button>
      </Drawer>
     </>
