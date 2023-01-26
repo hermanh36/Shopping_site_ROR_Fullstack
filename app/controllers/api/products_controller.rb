@@ -7,6 +7,7 @@ class Api::ProductsController < ApplicationController
 
     def create
         @product = Product.new(products_params)
+        render 'api/products/show'
     end
 
     def update
