@@ -6,6 +6,7 @@ import { data } from "../../data";
 import { getProductsSelector } from "../../Redux/toolkit/product.slice";
 import ProductCard from "../Products/ProductCard";
 import Footer from "../public/Footer/Footer";
+import Cart from "../Cart/Cart"
 import { Colors } from "../../styles/theme";
 
 export default function AllProducts() {
@@ -94,6 +95,7 @@ const Option = styled.option``;
         {renderProducts}
       </Grid>
       <Footer/>
+      <Cart/>
     </Container>
   );
 }

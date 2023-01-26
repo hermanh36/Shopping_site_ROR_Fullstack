@@ -32,6 +32,8 @@ import {
 import { getCartItemAmount } from "../../../Redux/toolkit/cart.slice";
 import {useState, MouseEvent} from 'react';
 import UploadPage from "../../UploadProduct/UploadPage";
+import Search from "./Search";
+
 
 
 function NavBar(){
@@ -50,6 +52,7 @@ function NavBar(){
     setAnchorEl(null);
   };
 const [showUploadPage, setShowUploadPage] = useState(false);
+const [showSearchBox, setShowSearchBox] = useState(false);
 
 return(
   <>
@@ -78,11 +81,12 @@ return(
         </ListItem>
     
     
-        <ListItem button>
+        <ListItem button onClick={() => setShowSearchBox(true)}>
           <ListItemIcon>
             <SearchIcon />
           </ListItemIcon>
          </ListItem>
+         <Search showSearchBox={showSearchBox} setShowSearchBox={setShowSearchBox}/>
          <Divider orientation="vertical" flexItem />
 
         <ListItem button

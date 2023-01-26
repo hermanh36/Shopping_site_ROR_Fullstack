@@ -19,7 +19,7 @@ export default function ProductDetails(
     {product, show, setShow}: DetailPropsType
 ) {
 
-  const handleOpenCart = (showornot: boolean) => {
+  const handleOpenDetail = (showornot: boolean) => {
     setShow(!showornot);
   };
   const reviewSubmitHandler = () => {};
@@ -43,7 +43,7 @@ export default function ProductDetails(
           justifyContent="flex-end"
           alignItems="flex-end"
         >
-          <IconButton onClick={() => handleOpenCart(show)}>
+          <IconButton onClick={() => handleOpenDetail(show)}>
             <CloseIcon />
           </IconButton>
         </Box>
