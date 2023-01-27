@@ -12,6 +12,7 @@ import {addCurrentUser, UserType} from "../../Redux/toolkit/user.slice";
 
 export type sessionEnum = "login" | "sign_up";
 
+
 interface sessionForm {
   formType: sessionEnum;
 }

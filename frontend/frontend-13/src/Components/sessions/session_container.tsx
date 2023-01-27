@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import { login,signup } from '../../Redux/actions/session_actions';
+import { login,signup} from '../../Redux/actions/session_actions';
 import SessionForm from './session_form'
 
 const mSTP = (state:any) => {
     return {
-        currentUser: state.session.id,
+        currentUserId: state.session.id,
         signUpUserId: state.users.user,
         currentUserName: state.users.username,
         currentUserEmail: state.users.email,
