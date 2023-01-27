@@ -8,11 +8,12 @@ import { ThemeProvider } from "@mui/system";
 import theme from "./styles/theme";
 import ProductDetails from './Components/product_pages/product_detail';
 import AllProducts from './Components/all_products/AllProducts';
-
+import { useSelector } from "react-redux";
+import usersReducer from "./Redux/reducer/users_reducer"
+import configureStore from './Redux/store/store'
 
 
 function App() {
-
 
 
   return (
@@ -42,3 +43,4 @@ function App() {
 }
 
 export default App;
+

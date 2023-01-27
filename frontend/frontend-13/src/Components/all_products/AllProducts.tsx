@@ -67,14 +67,6 @@ const Option = styled.option``;
             <Option>yellow</Option>
             <Option>green</Option>
           </Select>
-          {/* <Select name="size" >
-            <Option disabled>Size</Option>
-            <Option>XS</Option>
-            <Option>S</Option>
-            <Option>M</Option>
-            <Option>L</Option>
-            <Option>XL</Option>
-          </Select> */}
         </Filter>
         <Filter>
           <FilterText>Sort Products:</FilterText>

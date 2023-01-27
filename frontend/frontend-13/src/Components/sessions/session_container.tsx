@@ -6,6 +6,9 @@ const mSTP = (state:any) => {
     return {
         currentUser: state.session.id,
         signUpUserId: state.users.user,
+        currentUserName: state.users.username,
+    
+        currentUserEmail: state.users.email,
         error: state.session.error
     }
 }

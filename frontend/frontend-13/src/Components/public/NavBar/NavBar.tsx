@@ -30,19 +30,20 @@ import {
   import { OpenCart, getCartStatus } from "../../../Redux/toolkit/showcart.slice";
   import { useAppDispatch, useAppSeletor } from "../../../Redux/toolkit/store.hook";
 import { getCartItemAmount } from "../../../Redux/toolkit/cart.slice";
+import {getCurrenntUser} from "../../../Redux/toolkit/user.slice";
 import {useState, MouseEvent} from 'react';
 import UploadPage from "../../UploadProduct/UploadPage";
 import Search from "./Search";
-
+import  configureStore from '../../../Redux/store/store'
 
 
 function NavBar(){
   const dispatch = useAppDispatch();
   const show = useAppSeletor(getCartStatus);
+  const CurrentUserName = useAppSeletor(getCurrenntUser).username;
+
   const handleOpenCart = (showornot:boolean)=>{dispatch(OpenCart(showornot))};
   const ItemAmount = useAppSeletor(getCartItemAmount);
- 
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
@@ -152,7 +153,8 @@ return(
           </ListItemIcon>
           </Button>
           </ListItem>
-        <Menu
+
+{CurrentUserName?( <Menu
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -160,10 +162,30 @@ return(
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose} component="a" href="/login">My account</MenuItem>
+        
         <MenuItem onClick={()=>{handleClose();
         setShowUploadPage(true)}}>Upload Product</MenuItem>
+
+           <MenuItem onClick={handleClose} component="a" href="/login">{CurrentUserName}</MenuItem>
+           <MenuItem onClick={handleClose} component="a" href="/login">Log Out</MenuItem>
+
       </Menu>
+
+):( <Menu
+  anchorEl={anchorEl}
+  open={open}
+  onClose={handleClose}
+  MenuListProps={{
+    'aria-labelledby': 'basic-button',
+  }}
+>
+  
+  <MenuItem onClick={()=>{handleClose();
+  setShowUploadPage(true)}}>Upload Product</MenuItem>
+  <MenuItem onClick={handleClose} component="a" href="/login">My account</MenuItem> 
+</Menu>
+
+)} 
 
         <Divider orientation="vertical" flexItem />
      

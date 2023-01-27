@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 import cart from '../toolkit/cart.slice';
 import products from '../toolkit/product.slice';
 import showCart from '../toolkit/showcart.slice';
+import currentUser from '../toolkit/user.slice';
 
 const rootReducer = (combineReducers({
     session:sessionReducer,
@@ -11,5 +12,6 @@ const rootReducer = (combineReducers({
     cart,
     products,
     showCart,
+    currentUser
 }));
 export default rootReducer;

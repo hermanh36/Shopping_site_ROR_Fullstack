@@ -16,4 +16,3 @@ const showCartSlice = createSlice({
 export const {OpenCart} = showCartSlice.actions;
 export const getCartStatus = (state: RootState)=> state.showCart;
 export default showCartSlice.reducer;
-//export{}

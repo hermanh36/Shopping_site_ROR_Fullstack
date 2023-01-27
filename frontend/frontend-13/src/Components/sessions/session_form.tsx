@@ -7,6 +7,9 @@ import {
 } from "../../styles/banner";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSeletor } from "../../Redux/toolkit/store.hook";
+import {addCurrentUser, UserType} from "../../Redux/toolkit/user.slice";
+
 export type sessionEnum = "login" | "sign_up";
 
 interface sessionForm {
@@ -21,12 +24,19 @@ function SessionForm(props: any) {
   const [password, setPassword] = useState("");
   const [valid, setValid] = useState(true);
   const [error, setErrors] = useState(false);
+  const dispatch = useAppDispatch();
 
   
-  
+  const addCurrUser = (user: UserType) => dispatch(addCurrentUser(user)); 
   useEffect(() => {
     if (props.currentUser) {
       navigate("/");
+      const curUser = {
+        user: props.currentUser,
+        username: props.currentUserName,
+        email: props.currentUserEmail
+      }
+      addCurrUser(curUser);
       return;
     }
     if (props.signUpUserId === 'SUCCESS') {

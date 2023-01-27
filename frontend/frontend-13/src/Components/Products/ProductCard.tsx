@@ -23,7 +23,7 @@ export default function ProductCard(
    ) {
 
   const [showOptions, setShowOptions] = useState(false);
-  const dispatch = useAppDispatch();
+  const dispatch:any = useAppDispatch();
   const [show, setShow] = useState(false);
   const handleOpenDetail = (showornot:boolean)=>{setShow(showornot)};
 
