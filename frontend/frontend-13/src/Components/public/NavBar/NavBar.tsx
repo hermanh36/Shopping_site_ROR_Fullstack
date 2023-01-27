@@ -162,11 +162,12 @@ return(
           'aria-labelledby': 'basic-button',
         }}
       >
+         <MenuItem onClick={handleClose} component="a" href="/login">{CurrentUserName}</MenuItem>
         
         <MenuItem onClick={()=>{handleClose();
         setShowUploadPage(true)}}>Upload Product</MenuItem>
 
-           <MenuItem onClick={handleClose} component="a" href="/login">{CurrentUserName}</MenuItem>
+          
            <MenuItem onClick={handleClose} component="a" href="/login">Log Out</MenuItem>
 
       </Menu>
@@ -179,10 +180,11 @@ return(
     'aria-labelledby': 'basic-button',
   }}
 >
+<MenuItem onClick={handleClose} component="a" href="/login">My account</MenuItem> 
   
   <MenuItem onClick={()=>{handleClose();
   setShowUploadPage(true)}}>Upload Product</MenuItem>
-  <MenuItem onClick={handleClose} component="a" href="/login">My account</MenuItem> 
+  
 </Menu>
 
 )} 
