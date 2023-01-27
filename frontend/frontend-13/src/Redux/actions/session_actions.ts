@@ -16,7 +16,7 @@ const receiveCurrentUser = (user:any) => {
 const receiveSignUpUser = (user:any) => {
     return {
         type: RECEIVE_CURRENT_USER,
-        user: user
+        user: user.data
     }
 }
 

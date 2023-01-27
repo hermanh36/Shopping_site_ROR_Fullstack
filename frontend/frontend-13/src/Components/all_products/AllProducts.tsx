@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Container, Grid, Typography, Dialog, IconButton, SelectChangeEvent, MenuItem} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { data } from "../../data";
 import { getProductsSelector } from "../../Redux/toolkit/product.slice";
@@ -9,10 +10,112 @@ import Footer from "../public/Footer/Footer";
 import Cart from "../Cart/Cart"
 import { Colors } from "../../styles/theme";
 
-export default function AllProducts() {
+type Props={
+  showAllProductPage:boolean 
+  setShowAllProductPage: Function
+}
+export default function AllProducts(props:Props) {
 
-  const products = useSelector(getProductsSelector);
+  const initialproducts = useSelector(getProductsSelector);
+  const [products, setProducts] = useState(initialproducts);
+  const [sort, setSort]=useState("");
 
+  useEffect(()=>{
+    if(initialproducts){
+      setProducts(initialproducts)
+    }
+  },[initialproducts])
+
+//   useEffect(()=>{
+
+// setProducts(useSelector(getProductsSelector));
+
+//   },[getProductsSelector])
+
+
+  // const products = useSelector(getProductsSelector);
+
+  // useEffect(() => {
+  //   const sortProducts = type => {
+  //     const types = {
+  //       id: 'id',
+  //       priceasc: 'asc',
+  //       pricedesc: 'desc',
+  //     };
+  //     const sortProperty = types[type];
+  //     const sorted = [...bands].sort((a, b) => b[sortProperty] - a[sortProperty]);
+  //     setProducts(sorted);
+  //   };
+
+  //   sortProducts(sortType);
+  // }, [sortType]);
+    // const renderProducts = products.map((product) => (
+    //     <Grid item key={product.id} xs={2} sm={4} md={4} display="flex" flexDirection={'column'} alignItems="center">
+    
+    //         <ProductCard {...product} />
+          
+    //     </Grid>
+    //   ));
+      // const renderProducts =()=>{
+      //   if(sort=="asc"){
+      //     products
+      //     .sort((a, b)=> a.price - b.price)
+      //     .map((product) => (
+      //       <Grid item key={product.id} xs={2} sm={4} md={4} display="flex" flexDirection={'column'} alignItems="center">
+        
+      //           <ProductCard {...product} />
+              
+      //       </Grid>
+      //     ))
+      //   }
+
+      //   if(sort=="desc"){
+      //     products
+      //     .sort((a,b)=> b.price - a.price)
+      //     .map((product) => (
+      //       <Grid item key={product.id} xs={2} sm={4} md={4} display="flex" flexDirection={'column'} alignItems="center">
+        
+      //           <ProductCard {...product} />
+              
+      //       </Grid>
+      //     ))
+      //   }
+    
+      // }
+   
+  // useEffect(() => {
+  //   const renderProducts = products.map((product) => (
+  //     <Grid item key={product.id} xs={2} sm={4} md={4} display="flex" flexDirection={'column'} alignItems="center">
+  
+  //         <ProductCard {...product} />
+        
+  //     </Grid>
+  //   ));
+
+  //   renderProducts;
+  // }, [products]);
+
+
+  const sortProducts=(e:string)=>{
+    console.log("choose"+e);
+    if(e=="asc"){
+      setProducts([...products].sort((a, b)=> a.price - b.price));
+    }
+
+    if(e=="desc"){
+      setProducts([...products].sort((a,b)=> b.price - a.price));
+
+    }
+    
+  }
+
+   
+  const handleSelect = (event:string)=>{
+    setSort(event);
+    // console.log("select"+event);
+    sortProducts(event);
+  }
+ 
   const renderProducts = products.map((product) => (
     <Grid item key={product.id} xs={2} sm={4} md={4} display="flex" flexDirection={'column'} alignItems="center">
 
@@ -51,14 +154,29 @@ const Select = styled.select`
 const Option = styled.option``;
 
   return (
+    <Dialog open={props.showAllProductPage} fullScreen>
+     
+
+      <Box
+        m={1}
+        display="flex"
+        justifyContent="flex-end"
+        alignItems="flex-end"
+      >
+        <IconButton onClick={() => props.setShowAllProductPage(!props.showAllProductPage)}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+
     <Container>
               <Box display="flex" justifyContent="center" sx={{ p: 4 }}>
               <Typography variant="h4">Products</Typography>
             </Box>
+            <Box display="flex" justifyContent="center" sx={{ p: 4 }}>
             <FilterContainer>
-        <Filter>
-          <FilterText>Filter Products:</FilterText>
-          <Select name="color" >
+        {/* <Filter> */}
+          {/* <FilterText>Filter Products:</FilterText> */}
+          {/* <Select name="color" >
             <Option disabled>Color</Option>
             <Option>white</Option>
             <Option>black</Option>
@@ -66,17 +184,20 @@ const Option = styled.option``;
             <Option>blue</Option>
             <Option>yellow</Option>
             <Option>green</Option>
-          </Select>
-        </Filter>
+          </Select> */}
+        {/* </Filter> */}
         <Filter>
           <FilterText>Sort Products:</FilterText>
-          <Select>
-            <Option value="newest">Newest</Option>
+          <Select value={sort} onChange={
+            (e)=>handleSelect(e.target.value)
+          }>
+            {/* <Option value="newest">Newest</Option> */}
             <Option value="asc">Price Low to High</Option>
             <Option value="desc">Price High to Low</Option>
           </Select>
         </Filter>
       </FilterContainer>
+      </Box>
       <Grid        
         container
         spacing={{ xs: 2, md: 3 }}
@@ -85,9 +206,11 @@ const Option = styled.option``;
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {renderProducts}
+
       </Grid>
-      <Footer/>
-      <Cart/>
+      {/* <Footer/> */}
+      {/* <Cart/> */}
     </Container>
+    </Dialog>
   );
 }

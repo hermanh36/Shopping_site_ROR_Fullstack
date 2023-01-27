@@ -34,7 +34,7 @@ import {getCurrenntUser} from "../../../Redux/toolkit/user.slice";
 import {useState, MouseEvent} from 'react';
 import UploadPage from "../../UploadProduct/UploadPage";
 import Search from "./Search";
-// import LogOut from "./logout_container"
+import LogOut from "./logout_container"
 // import LogOut from "./LogOut";
 import  configureStore from '../../../Redux/store/store'
 
@@ -168,7 +168,7 @@ return(
         
         <MenuItem onClick={()=>{handleClose();
         setShowUploadPage(true)}}>Upload Product</MenuItem>
-      {/* <LogOut/> */}
+      <LogOut/>
           
            {/* <MenuItem onClick={handleClose} component="a" href="/login">Log Out</MenuItem> */}
 

@@ -7,8 +7,12 @@ import {
     BannerShopButton,
     BannerTitle,
   } from "../../styles/banner";
+  import {useState, MouseEvent} from 'react';
+  import AllProducts from "../all_products/AllProducts";
 
 export default function Banner(){
+
+  const [showAllProductPage, setShowAllProductPage] = useState(false);
     return(
         
         <BannerContainer >
@@ -24,8 +28,12 @@ export default function Banner(){
             tempor incididunt ut labore et dolore magna
           </BannerDescription>
   
-          <BannerShopButton color="primary" href="/products">Shop Now</BannerShopButton>
+          <BannerShopButton color="primary" 
+          // href="/products"
+          onClick={()=>{setShowAllProductPage(true)}}
+          >Shop Now</BannerShopButton>
         </BannerContent>
+        <AllProducts showAllProductPage={showAllProductPage} setShowAllProductPage={setShowAllProductPage} />
       </BannerContainer>
     )
 }

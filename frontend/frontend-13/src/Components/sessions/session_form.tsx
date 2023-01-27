@@ -26,14 +26,16 @@ function SessionForm(props: any) {
   const [valid, setValid] = useState(true);
   const [error, setErrors] = useState(false);
   const dispatch = useAppDispatch();
-
-  
   const addCurrUser = (user: UserType) => dispatch(addCurrentUser(user)); 
   useEffect(() => {
-    if (props.currentUser) {
+    console.log(props.signUpStatus);
+    console.log(props.signUpUserId);
+    console.log(props);
+    if (props.currentUserId) {
       navigate("/");
+      console.log("login"+props.currentUserId)
       const curUser = {
-        user: props.currentUser,
+        user: props.currentUserId,
         username: props.currentUserName,
         email: props.currentUserEmail
       }
@@ -41,9 +43,10 @@ function SessionForm(props: any) {
       return;
     }
     if (props.signUpUserId === 'SUCCESS') {
-      navigate("/login")
+      navigate("/login");
+      console.log("sign up"+props.signUpUserId)
     }
-  },[props.currentUser, props.signUpStatus])
+  },[props.currentUserId, props.signUpStatus])
 
 
   const submitHandler = (e: React.SyntheticEvent ): void =>  {
@@ -124,8 +127,8 @@ function SessionForm(props: any) {
               margin="normal"
               label="Username"
               value={username}
-              error={username !=="" && username.length<3}
-              helperText={username !=="" && username.length<3?'User name must be 3 characters long!':''}
+              error={username !=="" && username.length<6}
+              helperText={username !=="" && username.length<6?'User name must be 6 characters long!':''}
               fullWidth
               required
             />
@@ -135,20 +138,20 @@ function SessionForm(props: any) {
               margin="normal"
               label="Email"
               value={email}
-              error={email !=="" && email.length<3}
-              helperText={email !=="" && email.length<3?'Please use a valid email!':''}
+              error={email !=="" && email.length<6}
+              helperText={email !=="" && email.length<6?'Please use a valid email!':''}
               fullWidth
               required
             />
             <TextField
-              onChange={(e) => handleValidation(e)}
+              onChange={(e) => setPassword(e.target.value)}
               variant="outlined"
               margin="normal"
               label="Password"
               type="password"
               value={password}
-              error={!valid}
-              helperText={!valid?'Password must be minimum 4 characters, at least one uppercase letter, one lowercase letter, one number and one special character':''}
+              error={password !=="" && password.length<6}
+              helperText={password !=="" && password.length<6?'Password must be minimum 6 characters':''}
               fullWidth
               required
             />

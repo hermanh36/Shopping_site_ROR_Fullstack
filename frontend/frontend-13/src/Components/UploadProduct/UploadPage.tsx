@@ -6,7 +6,10 @@ import {
   Box,
   Dialog,
   IconButton,
-  Paper
+  Paper,
+  Alert,
+  Collapse,
+  Button
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -57,11 +60,22 @@ export default function UploadPage(prop:Props){
     product.image = imageURL;
     // dispatch(addProduct(product));
     dispatch(addProduct({ ...product }));
+    setOpenSucess(true);  
+    setProduct({
+      id: 0,
+      name: "",
+      price: 0,
+      description: "",
+      image: "",
+    });
   };
 
   const { id, name, price, description, image } = product;
 
-  const paperStyle={padding :20,height:'80vh',width:500, margin:"50px auto"}
+  const paperStyle={padding :20,height:'80vh',width:500, margin:"50px auto"};
+
+  const [openSucess, setOpenSucess] = React.useState(false);
+
   return (
     <Dialog open={prop.show} fullScreen>
      
@@ -136,9 +150,33 @@ export default function UploadPage(prop:Props){
               />
               </div>
 
-              <button className="upload-product-btn" type="submit">
+              <Button className="upload-product-btn" type="submit" 
+              disabled={openSucess}>
                 Upload Products
-              </button>
+              </Button>
+
+
+              <Box sx={{ width: '100%' }}>
+      <Collapse in={openSucess}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpenSucess(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          Upload Successful!
+        </Alert>
+      </Collapse>
+    </Box>
             </div>
           </form>
         </Box>

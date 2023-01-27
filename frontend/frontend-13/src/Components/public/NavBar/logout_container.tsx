@@ -13,4 +13,4 @@ const mDTP = {
 }
 
 
-// export default connect(mSTP,mDTP)(LogOut);
+export default connect(mSTP,mDTP)(LogOut);
