@@ -3,6 +3,7 @@ import {Product} from "./product.slice";
 import { RootState } from './store';
 
 export interface CartItemType extends Product{
+    // id:number;
     amount:number;
 }
 
@@ -11,7 +12,7 @@ const cartSlice = createSlice({
     initialState: [] as CartItemType[],
     reducers:{
         addToCart: (state, action: PayloadAction<Product>)=>{
-            const productIndex = state.findIndex(product=> product.id ===action.payload.id);
+            const productIndex = state.findIndex(product=> product.name ===action.payload.name);
             if(productIndex !== -1){
                 state[productIndex].amount+=1;
 
@@ -21,12 +22,12 @@ const cartSlice = createSlice({
 
         },
 
-        removeFromCart:(state, action: PayloadAction<number>)=>{
-            const productIndex = state.findIndex(product=> product.id === action.payload)
+        removeFromCart:(state, action: PayloadAction<string>)=>{
+            const productIndex = state.findIndex(product=> product.name === action.payload)
             if(state[productIndex].amount>1){
                 state[productIndex].amount-=1;
             } else {
-                return state.filter(product=> product.id !==action.payload)
+                return state.filter(product=> product.name !==action.payload)
             }
 
         }

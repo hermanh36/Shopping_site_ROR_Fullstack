@@ -37,16 +37,16 @@ const Cart: React.FC = () => {
   const showCart = useAppSeletor(getCartStatus);
   const dispatch = useAppDispatch();
 
-  const handleRemoveFromCart = (productId: number) =>
-    dispatch(removeFromCart(productId));
+  const handleRemoveFromCart = (productName: string) =>
+    dispatch(removeFromCart(productName));
   const handleOpenCart = (showornot: boolean) => {
     dispatch(OpenCart(showornot));
   };
 
   const addToCartHander = (product: Product) => dispatch(addToCart(product)); 
 
-  const cartContent = cartProducts.map((product) => (
-    <React.Fragment key={product.id}>
+  const cartContent = cartProducts.map((product: any) => (
+    <React.Fragment key={product.name}>
 
       <Box
         display="flex"
@@ -73,7 +73,7 @@ const Cart: React.FC = () => {
         alignItems="center"
         justifyContent="center"
         >
-      < BannerShopButton  sx={{ width: 40, height: 30 }} onClick={() => handleRemoveFromCart(product.id)}>
+      < BannerShopButton  sx={{ width: 40, height: 30 }} onClick={() => handleRemoveFromCart(product.name)}>
           {" "} - {" "}
         </BannerShopButton>
 

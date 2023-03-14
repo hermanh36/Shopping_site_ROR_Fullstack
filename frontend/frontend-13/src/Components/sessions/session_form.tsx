@@ -75,7 +75,7 @@ function SessionForm(props: any) {
   };
 
 
-  const paperStyle={padding :20,height:'80vh',width:500, margin:"50px auto"}
+  const paperStyle={padding :20,height:'90vh',width:500, margin:"50px auto"}
   const avatarStyle={backgroundColor: Colors.secondary}
   // const btnstyle={margin:'8px 0'}
 

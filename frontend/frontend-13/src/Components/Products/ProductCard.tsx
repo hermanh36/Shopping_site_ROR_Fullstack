@@ -17,6 +17,9 @@ import {useAppDispatch, useAppSeletor} from '../../Redux/toolkit/store.hook';
 import {getProductsSelector, Product} from "../../Redux/toolkit/product.slice";
 import ProductDetails from "../product_pages/product_detail";
 import {useNavigate} from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteProductAsync } from "../../Redux/toolkit/product.slice";
+// import CloseIcon from "@mui/icons-material/Close"
 
 export default function ProductCard( 
   product:Product
@@ -38,12 +41,41 @@ const handleMouseEnter = () => {
 const addToCartHander = (product: Product) => dispatch(addToCart(product)); 
 const navigate = useNavigate();
 
+const[imageBloburl, setImageBloburl]=useState("");
+
+
+
+// useEffect(() => {
+//   return () => {
+    // const imagetoBlob= new Blob([product.image], {type:'image/png'});
+    // if(imagetoBlob){
+    //   setImageBlob(imagetoBlob);
+    // }
+    
+    // URL.revokeObjectURL(imageUrl);
+//     const imageBlob= new Blob([product.image], {type:'image/png'});
+
+//     //  const imageUrl=
+//      setImageBloburl(URL.createObjectURL(imageBlob));
+//      console.log("effect");
+//      console.log(imageBloburl);
+//   };
+// }, []);
+
+const handleDelete=(product:Product)=>{
+dispatch(deleteProductAsync (product));
+// console.log("delete"+product.id)
+}
+
   return (
     <>
-
+{/* {console.log(imageUrl)} */}
       <ProductBox onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <ProductImage 
         src={product.image}
+        // src={URL.createObjectURL(product.image)}
+        // src={imageUrl}
+        // src={imageBloburl}
          />
         <ProductFavButton isfav={0}>
           <FavoriteIcon />
@@ -57,6 +89,13 @@ const navigate = useNavigate();
         ): undefined}
         <ProductActionsWrapper show={showOptions}>
           <Stack direction={"column"}>
+
+          <ProductActionButton onClick={()=>handleDelete(product)}>
+              <Tooltip placement="left" title="share this product">
+                <DeleteIcon  color="primary" />
+              </Tooltip>
+            </ProductActionButton>
+
             <ProductActionButton>
               <Tooltip placement="left" title="share this product">
                 <ShareIcon color="primary" />

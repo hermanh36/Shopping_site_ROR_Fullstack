@@ -8,3 +8,13 @@ export const signup = (user:any) => {
         }
     })
 }
+
+export const getUsers = () => {
+    return axios({
+        url: '/api/users',
+        method: 'get',
+        data: {
+         
+        }
+    })
+}
